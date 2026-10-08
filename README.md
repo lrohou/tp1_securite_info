@@ -14,7 +14,7 @@ Notre infrastructure repose sur la centralisation et l'analyse des logs. Nous ut
 
 ```mermaid
 graph LR
-    A [Attaquant Kali] -->|Trafic Malveillant| B(Apache / SSH / Snort)
+    A[Attaquant Kali] -->|Trafic Malveillant| B(Apache / SSH / Snort)
     B -->|Logs générés| C[syslog-ng]
     C -->|JSON via HTTP| D[(Elasticsearch)]
     D -->|Requêtes| E[Kibana Dashboard]
