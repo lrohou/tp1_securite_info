@@ -5,7 +5,7 @@ Voici le dépôt de notre projet de sécurité des réseaux. L'objectif est de m
 ## Équipe
 - Loan ROHOU
 - Dylan MARTY
-- Pierre Berteaud
+- Pierre Zboril-Berteaud
 - Mathis Letellier
 
 ## Architecture du Projet
