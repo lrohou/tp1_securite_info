@@ -52,3 +52,11 @@ alert tcp any any -> $HOME_NET 80 (msg:"SQLI outil sqlmap detecte (User-Agent)";
 alert tcp any any -> $HOME_NET 80 (msg:"SQLI UNION SELECT detecte"; flow:to_server,established; content:"union"; nocase; http_uri; content:"select"; nocase; http_uri; distance:0; classtype:web-application-attack; sid:1000016; rev:1;)
 
 #########################################################################################################################################################
+
+#-----------------------------------
+#Attaque DDoS Syn-Flood
+#-----------------------------------
+alert tcp any any -> $HOME_NET 80 (msg:"ALERTE DDoS - SYN Flood detecte"; flags:S; threshold:type both, track by_dst, count 100, seconds 2; sid:1000004; rev:1;)
+
+
+#########################################################################################################################################################
