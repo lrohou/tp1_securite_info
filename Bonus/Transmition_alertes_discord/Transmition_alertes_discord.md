@@ -47,6 +47,7 @@ while read MESSAGE; do
 
 done
 ```
+Vous pouvez trouver le script en fichier dans `/CONF/alerte_discord/alerte_sec.sh`
 
 Rendez ensuite le script exécutable par le système :
 
