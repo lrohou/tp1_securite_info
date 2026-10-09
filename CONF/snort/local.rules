@@ -11,16 +11,16 @@ alert icmp any any -> $HOME_NET any (msg:"TEST ICMP Ping detecte"; sid:100001; r
 ###################################################################### NMAP ##########################################################################
 
 # 1 - Scan de ports par nmap classique
-alert tcp any any -> $HOME_NET any (msg:"SCAN DE PORTS detecte - nmap"; flags:S; detection_filter:track by_src, count 5, seconds 5; sid:1000002; rev:1; )
+alert tcp any any -> $HOME_NET any (msg:"SCAN DE PORTS detecte - nmap"; flags:S; threshold:type both, track by_src, count 5, seconds 5; sid:1000002; rev:1; )
 
 # 2 - Scan de ports XMAS (Nmap -sX)
-alert tcp any any -> $HOME_NET any (msg:"Scan de ports XMAS detecte"; flags:FPU; sid:1000008; rev:1;)
+alert tcp any any -> $HOME_NET any (msg:"Scan de ports XMAS detecte"; flags:FPU; threshold:type both, track by_src, count 5, seconds 5; sid:1000008; rev:1;)
 
 # 3 - Scan de ports NULL (Nmap -sN)
-alert tcp any any -> $HOME_NET any (msg:"Scan de ports NULL detecte"; flags:0; sid:1000009; rev:1;)
+alert tcp any any -> $HOME_NET any (msg:"Scan de ports NULL detecte"; flags:0; threshold:type both, track by_src, count 5, seconds 5; sid:1000009; rev:1;)
 
 # 4 - Scan de ports FIN (Nmap -sF)
-alert tcp any any -> $HOME_NET any (msg:"Scan de ports FIN detecte - nmap -sF"; flags:F; sid:1000010; rev:1;)
+alert tcp any any -> $HOME_NET any (msg:"Scan de ports FIN detecte - nmap -sF"; flags:F; threshold:type both, track by_src, count 5, seconds 5; sid:1000010; rev:1;)
 
 #######################################################################################################################################################
 
@@ -60,3 +60,9 @@ alert tcp any any -> $HOME_NET 80 (msg:"ALERTE DDoS - SYN Flood detecte"; flags:
 
 
 #########################################################################################################################################################
+
+#----------------------------------
+#Attaque Vulnerabilité Web
+#----------------------------------
+
+alert tcp any any -> any 80 (msg:"SCAN WEB Nikto"; content:"Nikto"; nocase; sid:1000005; rev:1;)
