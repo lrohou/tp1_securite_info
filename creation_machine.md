@@ -1,6 +1,6 @@
 # Tutoriel : Mise en place de l'infrastructure virtuelle (Ubuntu Server & Kali Linux)
 
-*Note : Ce guide détaille les étapes génériques de configuration de l'infrastructure. Pour plus de contexte, il est possible de se référer au document [Guide d'Installation Pas-à-Pas](INSTALLATION.md).*
+*Note : Ce guide détaille les étapes génériques de configuration des machines virtuelles. Pour plus de contexte, il est possible de se référer au document [Guide d'Installation Pas-à-Pas](INSTALLATION.md).*
 
 ## Partie 1 : Création de la VM1 (Serveur cible - Ubuntu)
 
