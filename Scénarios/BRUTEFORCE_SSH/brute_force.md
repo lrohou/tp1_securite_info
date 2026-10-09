@@ -12,7 +12,7 @@ Pour détecter ce comportement, nous surveillons la fréquence d'ouverture de se
 **Règle ajoutée :**
 
 ```
-alert tcp any any -> $HOME_NET 22 (msg:"SSH Brute-Force attaque"; threshold: type both, track by_src, count 3, seconds 60; classtype:misc-attack; sid:1000281; rev:2;)
+alert tcp any any -> $HOME_NET 22 (msg:"SSH Brute-Force attaque"; threshold: type both, track by_src, count 3, seconds 60; classtype:misc-attack; sid:1000003; rev:2;)
 ```
 
 *Explication de la règle : L'alerte est déclenchée si une même adresse IP source initie 3 connexions vers le port 22 de notre réseau interne en l'espace de 60 secondes. Le paramètre `threshold: type both` permet de limiter le nombre d'alertes générées par Snort pour éviter de saturer les logs (1 alerte toutes les 60 secondes par IP).*
