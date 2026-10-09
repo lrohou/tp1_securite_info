@@ -34,8 +34,8 @@ Puisque le champ texte brut `message` ne peut pas être agrégé automatiquement
      - Label : **DDoS (SYN Flood)**
      - *Cliquez sur Add filter pour valider la tranche.*
    - **Tranche 3 (Autres alertes) :**
-     - KQL : `NOT (message: "1000001" OR message: "1000004")`
-     - Label : **Autres alertes**
+     - ...
+    - ...
     
 ![Img montrant diagramme camembert des types d'attaques configaration des filtres](images/Type_PieChart_Conf.png)
 
