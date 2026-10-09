@@ -200,3 +200,6 @@ sudo systemctl enable --now kibana
 4. Timestamp field : `@timestamp` et sauvegardez.
 5. Allez dans **Analytics** > **Discover**.
 6. Vous pouvez maintenant filtrer avec `program: "snort"` ou `message: "*SQLI*"` pour voir vos alertes Snort croisées avec les requêtes Apache (`program: "apache2"`) !
+
+---
+**[Retour au README](README.md)**

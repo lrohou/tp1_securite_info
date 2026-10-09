@@ -100,3 +100,7 @@ Puisque le champ texte brut `message` ne peut pas être agrégé automatiquement
 5. Cliquez sur le bouton **Close** du menu des filtres, puis sur **Save and return** pour ajouter le camembert finalisé.
 
 6. Ajustez la taille et la disposition de vos graphiques, puis sauvegardez votre travail en cliquant sur le bouton global **Save** en haut à droite de l'écran.
+
+
+---
+**[Retour au README](../../README.md)**

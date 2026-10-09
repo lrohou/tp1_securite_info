@@ -58,6 +58,7 @@ Nous avons implémenté et testé 5 cas d'intrusion différents. Chaque dossier 
 
 ```
 .
+├── creation_machine.md
 ├── INSTALLATION.md
 ├── README.md
 ├── Bonus
@@ -78,6 +79,8 @@ Nous avons implémenté et testé 5 cas d'intrusion différents. Chaque dossier 
 │   │   └── alerte_sec.sh
 │   ├── kibana
 │   │   └── kibana.yml
+│   ├── netplan
+│   │   └── 50-cloud-init.yaml
 │   ├── snort
 │   │   ├── local.rules
 │   │   └── snort.conf
@@ -109,7 +112,6 @@ Nous avons implémenté et testé 5 cas d'intrusion différents. Chaque dossier 
     │   │   ├── 09_kibana_visualisation.png
     │   │   ├── 10_test_requete_sans_alerte.png
     │   │   └── 11_execution_script.png
-    │   ├── INSTALLATION.md
     │   ├── README.md
     │   └── script
     │       ├── 11_execution_script.png

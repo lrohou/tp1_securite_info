@@ -91,3 +91,6 @@ Le champ `message` doit contenir le texte `SCAN WEB Nikto`. L'horodatage permet 
 - **Faux positifs possibles :** toute requête vers le port 80 contenant le texte `Nikto` peut déclencher une alerte.
 - **Alerte distincte d'une vulnérabilité :** la signature indique un trafic correspondant à la règle, pas la présence ni l'exploitation réussie d'une faille.
 - **Amélioration possible :** corréler les alertes Snort avec les journaux d'accès et d'erreur Apache, puis vérifier séparément les constats de Nikto et les configurations concernées.
+
+---
+**[Retour au README](../../README.md)**

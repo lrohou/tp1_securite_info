@@ -121,3 +121,6 @@ Dans le cadre d'un véritable SYN Flood, les attaquants falsifient (spoofent) g�
 
 ### 5.5 Vulnérabilité de l'infrastructure de supervision
 Lors d'une attaque massive, le volume de paquets peut saturer les capacités de traitement de Snort. De plus, la génération excessive d'alertes risque d'engorger la chaîne de journalisation (syslog-ng), de saturer l'espace disque du serveur et de provoquer le plantage d'Elasticsearch ou de Kibana, neutralisant ainsi la visibilité sur l'attaque.
+
+---
+**[Retour au README](../../README.md)**

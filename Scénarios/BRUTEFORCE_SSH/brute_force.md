@@ -30,3 +30,6 @@ alert tcp any any -> $HOME_NET 22 (msg:"SSH Brute-Force attaque"; threshold: typ
 ## 4. Limites et Améliorations (Analyse)
 * **Limite actuelle :** Cette règle réseau se base uniquement sur le volume de connexions (3 en 60 secondes). Elle peut générer de faux positifs si un administrateur légitime se trompe plusieurs fois de mot de passe rapidement, ou à l'inverse, manquer une attaque très lente (une tentative toutes les 5 minutes). De plus, l'IDS ne sait pas si l'attaque a finalement réussi ou échoué.
 * **Amélioration possible (Veille) :** Pour sécuriser efficacement le service SSH, la détection réseau doit être complétée par une détection système. L'utilisation d'outils comme **Fail2Ban** permet d'analyser les logs d'authentification réels et de bannir l'IP source au niveau du pare-feu après X échecs consécutifs. La désactivation de l'authentification par mot de passe au profit des clés SSH est également la norme en production.
+
+---
+**[Retour au README](../../README.md)**

@@ -195,3 +195,6 @@ Trois temps :
 - Passer de Snort à Snort 3 ou Suricata, dont les règles HTTP sont plus riches.
 - Corréler avec Wazuh pour enrichir la collecte (logs applicatifs, intégrité des fichiers).
 - Explorer la détection d'anomalies par apprentissage automatique pour repérer les variantes non couvertes par les signatures.
+
+---
+**[Retour au README](../../README.md)**

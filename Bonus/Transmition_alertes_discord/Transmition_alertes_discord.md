@@ -126,3 +126,6 @@ sudo systemctl restart syslog-ng
 Dès la remise en route du service, toute nouvelle attaque déclenchant une règle personnalisée dans Snort traversera ce pipeline et sera instantanément publiée sur le canal Discord désigné.
 
 ![Img du canal discord avec les alerts](images/Alertes_discord.png)
+
+---
+**[Retour au README](../../README.md)**
