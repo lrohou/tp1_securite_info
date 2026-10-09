@@ -29,7 +29,13 @@ C'est l'une des attaques web les plus courantes et l'une des plus graves. Elle l
 - 6 attaques lancées depuis Kali.
 - Les alertes remontent jusqu'à Kibana via syslog-ng et Elasticsearch.
 
-> **Remarque.** La page cible n'a pas de base de données derrière. Les attaques n'aboutissent donc pas (sqlmap conclut « not injectable »). Ce n'est pas gênant : le projet évalue la **détection de la tentative**, et Snort analyse le trafic, pas le résultat de l'attaque.
+> **Remarque importante sur l'absence de base de données :**
+> Il n'y a **pas de véritable base de données** derrière la page `produits.php` ni de vrai site internet complexe. 
+> Par conséquent, **les attaques d'injection SQL n'aboutissent pas réellement** (un outil automatisé comme sqlmap conclura même que la cible est « not injectable »).
+> 
+> **Pourquoi est-ce suffisant ?**
+> L'objectif de ce scénario n'est pas d'étudier l'exploitation d'une vulnérabilité (vol de données, altération de la base), mais uniquement sa **détection**. 
+> Snort agit comme une sonde réseau : il se contente d'analyser les paquets en transit et de repérer les motifs d'attaque (les signatures d'injection SQL) envoyés dans les requêtes HTTP. Qu'un serveur soit réellement vulnérable ou qu'il ignore la requête importe peu : la tentative malveillante a transité sur le réseau, elle est donc repérée par Snort et journalisée.
 
 ## 2. Les règles Snort
 
