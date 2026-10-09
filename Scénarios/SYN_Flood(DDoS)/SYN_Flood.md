@@ -99,3 +99,25 @@ Pour vérifier que la détection fonctionne :
 4. Vérifiez que les événements générés par Snort apparaissent bien dans les résultats.
 
 ![Visualisation de l'alerte dans Kibana](Kibana_allert_DDoS.png)
+
+## 5. Limites de la configuration
+Bien que cette règle permette de détecter une attaque basique, ce dispositif présente plusieurs limites techniques et conceptuelles :
+
+### 5.1 Détection sans prévention (IDS vs IPS)
+La règle actuelle est configurée avec l'action alert. Le système agit uniquement en tant que système de détection d'intrusion (IDS) et se contente de journaliser l'événement. Aucun mécanisme n'est en place pour bloquer (action drop) le trafic malveillant. Le serveur Apache reste donc totalement vulnérable à l'épuisement de ses ressources.
+
+### 5.2 Sensibilité des seuils (Faux positifs et faux négatifs)
+La détection repose sur un seuil fixe et rigide (100 paquets en 2 secondes).
+
+Faux positifs : Un pic d'affluence légitime très soudain sur le serveur web pourrait déclencher la règle, générant de fausses alertes.
+
+Faux négatifs : Un attaquant sophistiqué pourrait configurer son outil pour envoyer des requêtes à un rythme légèrement inférieur au seuil configuré (attaque de type Low and Slow). L'attaque passerait alors sous le radar de Snort tout en saturant lentement le serveur.
+
+### 5.3 Absence d'analyse d'état (Stateful inspection)
+La règle se limite à compter les paquets porteurs du drapeau SYN. Elle ne vérifie pas si la connexion aboutit réellement (réception d'un paquet ACK). Une analyse plus avancée nécessiterait l'utilisation des préprocesseurs de Snort (comme le préprocesseur stream), capables de maintenir l'état des sessions TCP et de détecter spécifiquement les demi-connexions orphelines.
+
+### 5.4 Usurpation d'adresse IP (IP Spoofing)
+Dans le cadre d'un véritable SYN Flood, les attaquants falsifient (spoofent) généralement l'adresse IP source des paquets. Par conséquent, les adresses IP enregistrées par Snort et remontées dans Kibana sont le plus souvent illégitimes. Mettre en place un blocage manuel ou automatique basé sur ces adresses IP s'avère donc inefficace et risque de bloquer des utilisateurs légitimes (dommages collatéraux).
+
+### 5.5 Vulnérabilité de l'infrastructure de supervision
+Lors d'une attaque massive, le volume de paquets peut saturer les capacités de traitement de Snort. De plus, la génération excessive d'alertes risque d'engorger la chaîne de journalisation (syslog-ng), de saturer l'espace disque du serveur et de provoquer le plantage d'Elasticsearch ou de Kibana, neutralisant ainsi la visibilité sur l'attaque.
