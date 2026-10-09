@@ -85,7 +85,7 @@ Définissez ensuite un filtre pour cibler vos règles Snort personnalisées. Cel
 ```text
 filter f_regles_perso {
 
-    message("100000");
+    message("10000");
 
 };
 ```
