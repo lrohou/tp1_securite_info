@@ -9,7 +9,7 @@ Il faut ce rendre dans les Paramètres du ``serveur > Intégrations > Webhooks``
 
 **1.3** Copier l'URL générée.
 
-![Img de discord, copie de l'url du webhook](URL_Webhook.png)
+![Img de discord, copie de l'url du webhook](images/URL_Webhook.png)
 
 ## 2. Création du script d'alerte (Bash)
 
@@ -124,4 +124,4 @@ sudo systemctl restart syslog-ng
 
 Dès la remise en route du service, toute nouvelle attaque déclenchant une règle personnalisée dans Snort traversera ce pipeline et sera instantanément publiée sur le canal Discord désigné.
 
-![Img du canal discord avec les alerts](Alertes_discord.png)
+![Img du canal discord avec les alerts](images/Alertes_discord.png)
