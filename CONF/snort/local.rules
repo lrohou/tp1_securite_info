@@ -5,10 +5,15 @@
 # This file intentionally does not come with signatures.  Put your local
 # additions here.
 
-#ALERT PING
-alert icmp any any -> $HOME_NET any (msg:"TEST ICMP Ping detecte"; sid:100001; rev:1; )
+###################################################################### Alerte Ping ###################################################################
 
-###################################################################### NMAP ##########################################################################
+alert icmp any any -> $HOME_NET any (msg:"TEST ICMP Ping detecte"; sid:1000001; rev:1;)
+
+###################################################################### Attaque DDoS Syn-Flood ###################################################################
+
+alert tcp any any -> $HOME_NET 80 (msg:"ALERTE DDoS - SYN Flood detecte"; flags:S; threshold:type both, track by_dst, count 100, seconds 2; sid:1000004; rev:1;)
+
+###################################################################### Scan de Port ###################################################################
 
 # 1 - Scan de ports par nmap classique
 alert tcp any any -> $HOME_NET any (msg:"SCAN DE PORTS detecte - nmap"; flags:S; threshold:type both, track by_src, count 5, seconds 5; sid:1000002; rev:1; )
@@ -22,14 +27,9 @@ alert tcp any any -> $HOME_NET any (msg:"Scan de ports NULL detecte"; flags:0; t
 # 4 - Scan de ports FIN (Nmap -sF)
 alert tcp any any -> $HOME_NET any (msg:"Scan de ports FIN detecte - nmap -sF"; flags:F; threshold:type both, track by_src, count 5, seconds 5; sid:1000010; rev:1;)
 
-#######################################################################################################################################################
+##################################################################### Attaque brute Force SSH ###################################################################
 
-###################################################################### BRUTE FORCE SSH #################################################################
-
-alert tcp any any -> $HOME_NET 22 (msg:"SSH Brute-Force attaque"; threshold: type both, track by_src, count 3, seconds 60; classtype:misc-attack; sid:1000281; rev:2;)
-
-########################################################################################################################################################
-
+alert tcp any any -> $HOME_NET 22 (msg:"SSH Brute-Force attaque"; threshold: type both, track by_src, count 3, seconds 60; classtype:misc-attack; sid:1000003; rev:2;)
 
 ###################################################################### INJECTION SQL ###################################################################
 
@@ -51,18 +51,6 @@ alert tcp any any -> $HOME_NET 80 (msg:"SQLI outil sqlmap detecte (User-Agent)";
 # 6 - UNION SELECT (SID 1000016, car 1000010 est pris par le scan FIN)
 alert tcp any any -> $HOME_NET 80 (msg:"SQLI UNION SELECT detecte"; flow:to_server,established; content:"union"; nocase; http_uri; content:"select"; nocase; http_uri; distance:0; classtype:web-application-attack; sid:1000016; rev:1;)
 
-#########################################################################################################################################################
-
-#-----------------------------------
-#Attaque DDoS Syn-Flood
-#-----------------------------------
-alert tcp any any -> $HOME_NET 80 (msg:"ALERTE DDoS - SYN Flood detecte"; flags:S; threshold:type both, track by_dst, count 100, seconds 2; sid:1000004; rev:1;)
-
-
-#########################################################################################################################################################
-
-#----------------------------------
-#Attaque Vulnerabilité Web
-#----------------------------------
+###################################################################### Attaque Vulnerabilité Web ###################################################################
 
 alert tcp any any -> any 80 (msg:"SCAN WEB Nikto"; content:"Nikto"; nocase; sid:1000005; rev:1;)
