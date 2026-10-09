@@ -53,3 +53,84 @@ Nous avons implémenté et testé 5 cas d'intrusion différents. Chaque dossier 
 - **Passer de l'IDS à l'IPS :** Configurer Snort en mode "inline" pour bloquer activement les paquets malveillants, ou utiliser **Fail2Ban** en complément pour bannir temporairement les adresses IP offensantes au niveau du pare-feu (UFW).
 - **HIDS vs NIDS :** Ajouter un agent de type **Wazuh** (HIDS) sur le serveur. Il pourrait surveiller l'intégrité des fichiers sensibles (FIM) et analyser les logs d'erreurs en complément de l'analyse réseau de Snort, enrichissant ainsi la visibilité dans Kibana.
 - **Sécurité Applicative :** Placer un pare-feu applicatif (WAF) comme **ModSecurity** devant le serveur web pour bloquer les failles OWASP directement à la source.
+
+## Organisation du Git
+
+```
+.
+├── INSTALLATION.md
+├── README.md
+├── Bonus
+│   ├── Dashboard
+│   │   ├── Dashboard.md
+│   │   └── images
+│   │       ├── Chronologie_DiagrammeBarres.png
+│   │       ├── Type_PieChart1.png
+│   │       ├── Type_PieChart_Conf.png
+│   │       └── Type_PieChart.png
+│   └── Transmition_alertes_discord
+│       ├── images
+│       │   ├── Alertes_discord.png
+│       │   └── URL_Webhook.png
+│       └── Transmition_alertes_discord.md
+├── CONF
+│   ├── alerte_discord
+│   │   └── alerte_sec.sh
+│   ├── kibana
+│   │   └── kibana.yml
+│   ├── snort
+│   │   ├── local.rules
+│   │   └── snort.conf
+│   └── syslog-ng
+│       └── syslog-ng.conf
+└── Scénarios
+    ├── BRUTEFORCE_SSH
+    │   ├── brute_force.md
+    │   ├── images
+    │   │   ├── brute_force2.png
+    │   │   └── brute_force.png
+    │   └── script
+    │       ├── bruteforce_ssh.sh
+    │       ├── execution.md
+    │       └── txt
+    │           ├── small_password.txt
+    │           └── small_username.txt
+    ├── INJ_SQL
+    │   ├── extraits_logs.txt
+    │   ├── images
+    │   │   ├── 01_page_cible_produits.png
+    │   │   ├── 02_regles_snort_local_rules.png
+    │   │   ├── 03_validation_snort.png
+    │   │   ├── 04_attaques_kali.png
+    │   │   ├── 05_alertes_snort.png
+    │   │   ├── 06_logs_apache.png
+    │   │   ├── 07_kibana_discover_SQLI.png
+    │   │   ├── 08_kibana_apache_snort.png
+    │   │   ├── 09_kibana_visualisation.png
+    │   │   ├── 10_test_requete_sans_alerte.png
+    │   │   └── 11_execution_script.png
+    │   ├── INSTALLATION.md
+    │   ├── README.md
+    │   └── script
+    │       ├── 11_execution_script.png
+    │       └── attaques_sqli.sh
+    ├── SCAN_PORTS
+    │   ├── images
+    │   │   ├── nmap_classique.png
+    │   │   ├── nmap_fin.png
+    │   │   ├── nmap_null.png
+    │   │   └── nmap_xmas.png
+    │   ├── nmap.md
+    │   └── script
+    │       ├── execution.md
+    │       └── nmap.sh
+    ├── SCAN_Vulnerabilite_Web
+    │   ├── Image
+    │   │   ├── Alerte_Snort.png
+    │   │   ├── Attaque_Nikto.png
+    │   │   └── Kibana_allert_VulnerabiliteWeb.png
+    │   └── Scan_Vulnerabilite_Web.md
+    └── SYN_Flood(DDoS)
+        ├── Kibana_allert_DDoS.png
+        └── SYN_Flood.md
+```
