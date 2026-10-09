@@ -14,15 +14,27 @@ Assurez-vous que vos deux VM (Ubuntu et Kali) sont sur le même réseau privé h
 
 Vérifiez la connexion depuis Kali : `ping -c 4 192.168.56.101`
 
+Toute la procédure pour créer les deux VM est détaillée ici :
+**[Guide de Creation VM Pas-à-Pas](creation_machine.md)**
+
 ---
 
 ## 2. Services de base (Serveur Cible)
 
-Installez le serveur web (Apache) et SSH sur Ubuntu :
+Mettre à jour le système et installer les services requis (serveur web et SSH) :
+
 ```bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y apache2 php libapache2-mod-php openssh-server
 ```
+
+Vérifier l'état des services pour s'assurer de leur bon fonctionnement :
+
+```bash
+sudo systemctl status apache2 ssh
+```
+
+*Il est désormais possible d'établir une connexion SSH depuis la machine hôte vers le serveur cible (ex. via PowerShell : `ssh uqac@192.168.56.101`).*
 
 ---
 
@@ -70,32 +82,60 @@ Nous allons collecter les logs d'Apache, Snort et SSH, puis les formater en JSON
 Modifiez `/etc/syslog-ng/syslog-ng.conf` pour y ajouter ce bloc à la fin :
 
 ```text
+
 # --- Sources ---
 source s_apache {
-    file("/var/log/apache2/access.log" program-override("apache2"));
-    file("/var/log/apache2/error.log"  program-override("apache2"));
+    file("/var/log/apache2/access.log");
+    file("/var/log/apache2/error.log");
 };
 
 source s_snort {
-    file("/var/log/snort/snort.alert.fast" flags(no-parse) program-override("snort"));
+    file("/var/log/snort/snort.alert.fast" flags(no-parse));
 };
 
-# --- Destination Elasticsearch ---
+# --- Destination locale (test / débogage) ---
+destination d_local_central {
+    file("/var/log/syslog-ng-central.log");
+};
+
+# --- Liaison ---
+log {
+    source(s_apache);
+    source(s_snort);
+    source(s_src);
+    destination(d_local_central);
+};
+
+
 destination d_elastic {
     http(
         url("http://127.0.0.1:9200/_bulk")
         method("POST")
         headers("Content-Type: application/x-ndjson")
-        body("{\"create\": {\"_index\": \"logs-securite-${YEAR}.${MONTH}.${DAY}\"} }\n{\"@timestamp\": \"${ISODATE}\", \"host\": \"${HOST}\", \"program\": \"${PROGRAM}\", \"message\": \"$(escape-double-quotes \"${MSG}\")\"}\n")
+        body("{\"create\": {\"_index\": \"logs-securite-${YEAR}.${MONTH}.${DAY}\"} }\n{\"message\": \"${MSG}\"}\n")
     );
 };
 
-# --- Liaison (qui inclut aussi s_src pour SSH) ---
+destination d_script {
+    program("/usr/local/bin/alerte_sec.sh");
+};
+
 log {
     source(s_apache);
     source(s_snort);
     source(s_src);
+    destination(d_local_central);
     destination(d_elastic);
+};
+
+filter f_regles_perso {
+    message("10000");
+};
+
+log {
+    source(s_snort);
+    filter(f_regles_perso);
+    destination(d_script);
 };
 ```
 *Note importante : L'utilisation de `escape-double-quotes` protège le JSON contre les guillemets présents dans les requêtes Apache.*
